@@ -19,9 +19,9 @@ TEST(FIFO8TestGroup, IsEmptyAfterInit)
 
 TEST(FIFO8TestGroup, CanBeFilled)
 {
-    CHECK(fifo8_put(&f, 'x'));
-    CHECK(fifo8_put(&f, 'x'));
-    CHECK(fifo8_put(&f, 'x'));
+    CHECK_TRUE(fifo8_put(&f, 'x'));
+    CHECK_TRUE(fifo8_put(&f, 'x'));
+    CHECK_TRUE(fifo8_put(&f, 'x'));
 }
 
 TEST(FIFO8TestGroup, IsFull)
@@ -31,21 +31,21 @@ TEST(FIFO8TestGroup, IsFull)
     fifo8_put(&f, 'x');
     fifo8_put(&f, 'x');
     // should be full now
-    CHECK(fifo8_isfull(&f));
-    CHECK(fifo8_put(&f, 'x') == false);
+    CHECK_TRUE(fifo8_isfull(&f));
+    CHECK_FALSE(fifo8_put(&f, 'x'));
 }
 
 TEST(FIFO8TestGroup, GetEmpty)
 {
     char c;
-    CHECK(fifo8_get(&f, &c) == false);
+    CHECK_FALSE(fifo8_get(&f, &c));
 }
 
 TEST(FIFO8TestGroup, GetItem)
 {
     char c;
     fifo8_put(&f, '*');
-    CHECK(fifo8_get(&f, &c));
+    CHECK_TRUE(fifo8_get(&f, &c));
     CHECK_EQUAL(c, '*');
 }
 
@@ -54,7 +54,7 @@ TEST(FIFO8TestGroup, EmptyAfterItem)
     char c;
     fifo8_put(&f, '*');
     fifo8_get(&f, &c);
-    CHECK(fifo8_get(&f, &c) == false);
+    CHECK_FALSE(fifo8_get(&f, &c));
 }
 
 TEST(FIFO8TestGroup, NotFullAfterRead)
@@ -67,8 +67,8 @@ TEST(FIFO8TestGroup, NotFullAfterRead)
     // read one item
     fifo8_get(&f, &c);
     // should no longer be full now
-    CHECK(fifo8_isfull(&f) == false);
-    CHECK(fifo8_put(&f, 'x') == true);
+    CHECK_FALSE(fifo8_isfull(&f));
+    CHECK_TRUE(fifo8_put(&f, 'x'));
 }
 
 TEST(FIFO8TestGroup, FiFoOrder)
