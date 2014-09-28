@@ -11,12 +11,28 @@ void fifo8_init(fifo8_t *f, char *buffer, uint16_t size)
 
 bool fifo8_put(fifo8_t *f, char c)
 {
-    return false;
+    if (fifo8_isfull(f)) {
+        return false;
+    }
+    f->elem++;
+    f->buffer[f->write] = c;
+    if (++f->write == f->size) {
+        f->write = 0;
+    }
+    return true;
 }
 
 bool fifo8_get(fifo8_t *f, char *c)
 {
-    return false;
+    if (fifo8_isempty(f)) {
+        return false;
+    }
+    f->elem--;
+    *c = f->buffer[f->read];
+    if (++f->read == f->size) {
+        f->read = 0;
+    }
+    return true;
 }
 
 bool fifo8_isempty(fifo8_t *f)
