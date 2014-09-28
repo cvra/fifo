@@ -2,6 +2,7 @@
 #define FIFO8_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct {
     char *buffer;

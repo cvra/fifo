@@ -14,5 +14,5 @@ TEST_GROUP(FIFO8TestGroup)
 
 TEST(FIFO8TestGroup, FIFOIsEmptyAfterInit)
 {
-    CHECK_EQUAL(fifo8_isempty(&f), false);
+    CHECK_EQUAL(fifo8_isempty(&f), true);
 }
