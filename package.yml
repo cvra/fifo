@@ -1,0 +1,9 @@
+depends:
+    - test-runner
+
+source:
+    - fifo.c
+
+tests:
+    - tests/fifo_test.cpp
+
